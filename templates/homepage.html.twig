@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    List | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% for note in notes %}
+        <a href="{{path('app_detail',{slug:note.id})}}"><b>Description:</b>{{note.description}}</a>
+        <p><b>Category:</b>{{note.idCategory.description}}</p>
+        <p><b>Date:</b>{{note.createdAt|date("d-m-Y")}}</p>
+    {% endfor %}
+{% endblock %}

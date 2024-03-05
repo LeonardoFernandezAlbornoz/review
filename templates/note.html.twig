@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Note | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <p><b>Description: </b> {{note.description}}</p>
+    <p><b>Created at: </b>{{note.createdAt|date("d-m-Y")}}</p>
+    <p><b>Category: </b>{{note.idCategory.description}}</p>
+{% endblock %}

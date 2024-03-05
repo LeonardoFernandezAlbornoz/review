@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\NoteRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
@@ -22,7 +23,9 @@ class Note
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $idCategory = null;
-
+    public function __construct() {
+        $this->createdAt = new DateTimeImmutable();
+    }
     public function getId(): ?int
     {
         return $this->id;

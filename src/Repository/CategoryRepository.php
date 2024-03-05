@@ -22,12 +22,13 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    public function add(Category $category, bool $flush){
+    public function add(Category $category, bool $flush)
+    {
 
-        $this->persist($category);
+        $this->getEntityManager()->persist($category);
 
-        if($flush){
-            $this->flush();
+        if ($flush) {
+            $this->getEntityManager()->flush();
         }
 
     }

@@ -21,7 +21,23 @@ class NoteRepository extends ServiceEntityRepository
         parent::__construct($registry, Note::class);
     }
 
-//    /**
+    function getNotesOrderedByDates()
+    {
+        return $this->createQueryBuilder("n")->orderBy("n.createdAt", "ASC")->getQuery()->getResult();
+    }
+
+    public function add(Note $note, bool $flush)
+    {
+
+        $this->getEntityManager()->persist($note);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+
+    }
+
+    //    /**
 //     * @return Note[] Returns an array of Note objects
 //     */
 //    public function findByExampleField($value): array
@@ -36,7 +52,7 @@ class NoteRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Note
+    //    public function findOneBySomeField($value): ?Note
 //    {
 //        return $this->createQueryBuilder('n')
 //            ->andWhere('n.exampleField = :val')

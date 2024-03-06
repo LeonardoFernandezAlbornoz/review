@@ -22,6 +22,8 @@ class EntitiesController extends AbstractController
             $new->setDescription($category);
             $categoryRepository->add($new, true);
         }
+
+
         return new Response("Categories added");
     }
 

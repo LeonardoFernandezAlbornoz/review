@@ -6,7 +6,11 @@ use App\Entity\Note;
 use App\Repository\CategoryRepository;
 use App\Repository\NoteRepository;
 use App\Services\GenerateContent;
+use App\Services\Utilities;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function Symfony\Component\String\u;
@@ -52,10 +56,35 @@ class EntitiesController extends AbstractController
     }
 
     #[Route("/note/{slug}", name: "app_detail")]
-    function noteDetail(string $slug, NoteRepository $noteRepository)
+    function noteDetail(string $slug, NoteRepository $noteRepository, Utilities $utilities)
     {
-        $note = $noteRepository->find($slug);
 
-        return $this->render("note.html.twig", ["note" => $note]);
+        $note = $noteRepository->find($slug);
+        return $this->render("note.html.twig", ["note" => $note,"img"=>$utilities->getFile(),"prettyDate"=>$utilities->formatDate($note->getCreatedAt())]);
+    }
+
+     #[Route("/notes/add/", name: "app_add")]
+    function noteAdd(Request $request,NoteRepository $noteRepository, CategoryRepository $categories)
+    {   
+        $note=new Note();
+        $categories=$categories->findAll();
+        $form=$this->createFormBuilder($note)->add("description")->add("idCategory", ChoiceType::class, ["choices"=>[
+            "Category 1"=>$categories[0],
+            "Category 2"=>$categories[1]
+        ]
+    ])->add("createdAt")->getForm();
+
+    $form->handleRequest($request);
+
+    if($form->isSubmitted() && $form->isValid()){
+        $new=$form->getData();
+        $noteRepository->add($new, true);
+        $this->addFlash("success","Post added");
+        return $this->redirectToRoute("app_list");
+
+    }
+
+    return $this->render("form.html.twig",["form"=>$form]);
+
     }
 }

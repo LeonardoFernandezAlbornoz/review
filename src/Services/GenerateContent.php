@@ -34,7 +34,6 @@ class GenerateContent
 
     function getCategories()
     {
-
         return $this->categories;
     }
 

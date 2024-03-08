@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block body %}
+{% for message in app.flashes("success") %}
+	<p>{{message}}</p>
+{% endfor %}
 	{% for note in notes %}
 		<p>
 			<b>Description:</b>
@@ -19,5 +22,7 @@
 			<b>Date:</b>
 			{{note.createdAt|date("d-m-Y")}}</p>
 		<a href="{{path('app_detail',{slug:note.id})}}">Ver más</a>
+		<a href="{{path('app_delete',{slug:note.id})}}">Delete</a>
+		<a href="{{path("app_update",{slug:note.id})}}">Update</a>
 	{% endfor %}
 {% endblock %}

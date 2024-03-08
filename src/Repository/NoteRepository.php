@@ -37,6 +37,15 @@ class NoteRepository extends ServiceEntityRepository
 
     }
 
+    function remove(Note $note, bool $flush)
+    {
+        $this->getEntityManager()->remove($note);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
 //     * @return Note[] Returns an array of Note objects
 //     */

@@ -46,7 +46,19 @@ class NoteRepository extends ServiceEntityRepository
         }
     }
 
-    //    /**
+
+    //    public function findOneBySomeField($value): ?Note
+//    {
+//        return $this->createQueryBuilder('n')
+//            ->andWhere('n.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
+}
+
+//    /**
 //     * @return Note[] Returns an array of Note objects
 //     */
 //    public function findByExampleField($value): array
@@ -60,14 +72,3 @@ class NoteRepository extends ServiceEntityRepository
 //            ->getResult()
 //        ;
 //    }
-
-    //    public function findOneBySomeField($value): ?Note
-//    {
-//        return $this->createQueryBuilder('n')
-//            ->andWhere('n.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
-}

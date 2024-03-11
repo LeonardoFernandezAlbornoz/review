@@ -74,7 +74,7 @@ class EntitiesController extends AbstractController
                 "Category 1" => $categories[0],
                 "Category 2" => $categories[1]
             ]
-        ])->add("createdAt")->getForm();
+        ])->add("createdAt")->add("addBtn", SubmitType::class, ["label" => "Add", "attr" => ["class" => "btn btn-primary"]])->getForm();
 
         $form->handleRequest($request);
 

@@ -3,20 +3,26 @@ namespace App\Services;
 
 use DateTime;
 use DateTimeImmutable;
+use Knp\Bundle\TimeBundle\DateTimeFormatter;
+use Knp\Bundle\TimeBundle\KnpTimeBundle;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-class Utilities{
+class Utilities
+{
 
 
-    function __construct(#[Autowire("%imageFile%")] private string $image)
+    function __construct(#[Autowire("%imageFile%")] private string $image, private DateTimeFormatter $dateTimeFormatter)
     {
     }
 
-    function getFile(){
+    function getFile()
+    {
         return $this->image;
     }
-    function formatDate(DateTimeImmutable $data){
-        $actual=new DateTimeImmutable();
-        return $actual->diff($data)->format("%R%a days %H hours %I minutes");
+    function formatDate(DateTimeImmutable $date)
+    {
+
+        $actual = new DateTimeImmutable();
+        return $this->dateTimeFormatter->formatDiff($actual, $date);
     }
 }
